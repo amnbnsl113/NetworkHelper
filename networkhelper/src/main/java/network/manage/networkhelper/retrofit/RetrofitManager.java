@@ -23,7 +23,7 @@ public class RetrofitManager implements NetworkManager {
         requestInterface.get(url)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(new AbstractObserver<BaseResponse>(weakReference));
+                .subscribe(new AbstractObserver<>(weakReference));
     }
 
     @Override
@@ -31,6 +31,6 @@ public class RetrofitManager implements NetworkManager {
         requestInterface.getList(url)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(new AbstractObserver<List<BaseResponse>>(weakReference));
+                .subscribe(new AbstractObserver<>(weakReference));
     }
 }

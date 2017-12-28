@@ -9,6 +9,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import network.manage.networkhelper.Callback;
+import network.manage.networkhelper.NetworkInteractor;
 import network.manage.networkhelper.NetworkManager;
 import network.manage.networkhelper.common.NetworkError;
 import network.manage.networkhelper.model.BaseResponse;
@@ -16,7 +17,7 @@ import network.manage.networkhelper.retrofit.RetrofitManager;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
-    private NetworkManager networkManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +25,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textView = findViewById(R.id.text);
-        networkManager = new RetrofitManager();
-
     }
 
     public void buttonClicked(View view) {
-        networkManager.getList("https://jsonplaceholder.typicode.com/posts", new WeakReference(callback));
+        NetworkInteractor.getInstance().getNetworkManager().getList("https://jsonplaceholder.typicode.com/posts", new WeakReference<>(callback));
     }
 
 
