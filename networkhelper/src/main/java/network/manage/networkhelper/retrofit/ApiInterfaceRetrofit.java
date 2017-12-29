@@ -4,6 +4,8 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import network.manage.networkhelper.model.BaseResponse;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Url;
 
@@ -14,9 +16,9 @@ import retrofit2.http.Url;
 public interface ApiInterfaceRetrofit {
 
     @GET
-    Observable<List<BaseResponse>> getList(@Url String url);
+    Observable<Response<ResponseBody>> getList(@Url String url);
 
     @GET
-    Observable<BaseResponse> get(@Url String url);
+    Observable<Response<ResponseBody>> get(@Url String url);
 
 }

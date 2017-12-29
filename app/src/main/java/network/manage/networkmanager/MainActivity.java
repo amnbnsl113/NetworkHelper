@@ -5,15 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
-import network.manage.networkhelper.Callback;
 import network.manage.networkhelper.NetworkInteractor;
-import network.manage.networkhelper.NetworkManager;
+import network.manage.networkhelper.common.AbstractObserver;
 import network.manage.networkhelper.common.NetworkError;
-import network.manage.networkhelper.model.BaseResponse;
-import network.manage.networkhelper.retrofit.RetrofitManager;
+import network.manage.networkmanager.common.Callback;
+import network.manage.networkmanager.model.datamodel.PostDataModel;
+import network.manage.networkmanager.model.viewmodel.PostListViewModel;
+import network.manage.networkmanager.remote.RemoteDataSource;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
@@ -28,19 +28,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonClicked(View view) {
-        NetworkInteractor.getInstance().getNetworkManager().getList("https://jsonplaceholder.typicode.com/posts", new WeakReference<>(callback));
+        RemoteDataSource remoteDataSource = new RemoteDataSource();
+        remoteDataSource.getPostDataList(callback);
     }
 
-
-    private Callback<List<BaseResponse>> callback = new Callback<List<BaseResponse>>() {
+    private Callback<PostListViewModel> callback = new Callback<PostListViewModel>() {
         @Override
-        public void onSuccess(List<BaseResponse> baseResponses) {
-            textView.setText("Positive Response");
+        public void onSuccess(PostListViewModel postListViewModel) {
+            textView.setText("Positive");
         }
 
         @Override
         public void onFailure(NetworkError error) {
-            textView.setText("Negative Response");
+            textView.setText("Negative");
         }
     };
 

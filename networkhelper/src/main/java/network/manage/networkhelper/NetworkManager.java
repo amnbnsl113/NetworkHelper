@@ -3,6 +3,7 @@ package network.manage.networkhelper;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import network.manage.networkhelper.common.AbstractObserver;
 import network.manage.networkhelper.model.BaseResponse;
 
 /**
@@ -11,7 +12,7 @@ import network.manage.networkhelper.model.BaseResponse;
 
 public interface NetworkManager {
 
-    void get(String url, final WeakReference<Callback<BaseResponse>> weakReference);
+    public <T extends BaseResponse> void get(String url, final AbstractObserver<T> observer, Class<T> clazz);
 
-    void getList(String url, final WeakReference<Callback<List<BaseResponse>>> weakReference);
+    public <T extends BaseResponse> void getList(String url, final AbstractObserver<List<T>> observer, Class<T> clazz);
 }
