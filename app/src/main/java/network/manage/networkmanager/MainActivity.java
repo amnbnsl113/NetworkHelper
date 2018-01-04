@@ -5,14 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
-
-import network.manage.networkhelper.NetworkInteractor;
-import network.manage.networkhelper.common.AbstractObserver;
 import network.manage.networkhelper.common.NetworkError;
 import network.manage.networkmanager.common.Callback;
-import network.manage.networkmanager.model.datamodel.PostDataModel;
-import network.manage.networkmanager.model.viewmodel.PostListViewModel;
+import network.manage.networkmanager.model.viewmodel.FeedListViewModel;
 import network.manage.networkmanager.remote.RemoteDataSource;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void buttonClicked(View view) {
         RemoteDataSource remoteDataSource = new RemoteDataSource();
-        remoteDataSource.getPostDataList(callback);
+        remoteDataSource.getFeedDataList(callback);
     }
 
-    private Callback<PostListViewModel> callback = new Callback<PostListViewModel>() {
+    private Callback<FeedListViewModel> callback = new Callback<FeedListViewModel>() {
         @Override
-        public void onSuccess(PostListViewModel postListViewModel) {
+        public void onSuccess(FeedListViewModel postListViewModel) {
             textView.setText("Positive");
         }
 

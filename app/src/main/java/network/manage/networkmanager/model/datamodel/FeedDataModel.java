@@ -4,14 +4,14 @@ package network.manage.networkmanager.model.datamodel;
  * Created by aman on 28/12/17.
  */
 
-public class PostDataModel implements IDataModel {
+public class FeedDataModel implements IDataModel {
 
     private int userId;
     private int id;
     private String title;
     private String body;
 
-    public PostDataModel() {
+    public FeedDataModel() {
     }
 
     public int getUserId() {

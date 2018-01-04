@@ -9,42 +9,41 @@ import network.manage.networkhelper.common.AbstractObserver;
 import network.manage.networkhelper.common.NetworkError;
 import network.manage.networkmanager.common.Callback;
 import network.manage.networkmanager.common.NetworkUrl;
-import network.manage.networkmanager.mapper.PostListMapper;
-import network.manage.networkmanager.model.datamodel.PostDataModel;
-import network.manage.networkmanager.model.viewmodel.PostListViewModel;
+import network.manage.networkmanager.mapper.FeedListMapper;
+import network.manage.networkmanager.model.datamodel.FeedDataModel;
+import network.manage.networkmanager.model.viewmodel.FeedListViewModel;
 
 /**
  * Created by aman on 28/12/17.
  */
 
 public class RemoteDataSource {
-    NetworkManager networkManager = NetworkInteractor.getInstance().getNetworkManager();
+    private NetworkManager networkManager = NetworkInteractor.getInstance().getNetworkManager();
 
-
-    public void getPostDataList(Callback<PostListViewModel> callback) {
+    public void getFeedDataList(Callback<FeedListViewModel> callback) {
 
         String url = NetworkUrl.getPostListUrl();
-        final WeakReference<Callback<PostListViewModel>> reference = new WeakReference<>(callback);
+        final WeakReference<Callback<FeedListViewModel>> reference = new WeakReference<>(callback);
 
-        AbstractObserver<List<PostDataModel>> observer = new AbstractObserver<List<PostDataModel>>() {
+        AbstractObserver<List<FeedDataModel>> observer = new AbstractObserver<List<FeedDataModel>>() {
             @Override
-            public void onSuccess(List<PostDataModel> postDataModels) {
-                Callback<PostListViewModel> modelCallback = reference.get();
+            public void onSuccess(List<FeedDataModel> postDataModels) {
+                Callback<FeedListViewModel> modelCallback = reference.get();
                 if (modelCallback != null) {
-                    PostListViewModel postListViewModel = new PostListMapper().convert(postDataModels);
+                    FeedListViewModel postListViewModel = new FeedListMapper().convert(postDataModels);
                     modelCallback.onSuccess(postListViewModel);
                 }
             }
 
             @Override
             public void onFailure(NetworkError error) {
-                Callback<PostListViewModel> modelCallback = reference.get();
+                Callback<FeedListViewModel> modelCallback = reference.get();
                 if (modelCallback != null) {
                     modelCallback.onFailure(error);
                 }
             }
         };
-        networkManager.getList(url, observer, PostDataModel.class);
+        networkManager.getList(url, observer, FeedDataModel.class);
     }
 
 

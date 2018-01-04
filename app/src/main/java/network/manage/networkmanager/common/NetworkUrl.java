@@ -5,7 +5,12 @@ package network.manage.networkmanager.common;
  */
 
 public class NetworkUrl {
+    private static final String PRODUCTION = "https://jsonplaceholder.typicode.com/";
+    private static String BASE_URL = PRODUCTION;
+
     public static String getPostListUrl() {
-        return "https://jsonplaceholder.typicode.com/posts";
+        return BASE_URL + "posts";
     }
+
+
 }

@@ -6,11 +6,11 @@ import java.util.List;
  * Created by aman on 28/12/17.
  */
 
-public class PostListViewModel implements IViewModel {
+public class FeedListViewModel implements IViewModel {
 
     private List<ProductModel> productModels;
 
-    public PostListViewModel() {
+    public FeedListViewModel() {
     }
 
     public List<ProductModel> getProductModels() {
