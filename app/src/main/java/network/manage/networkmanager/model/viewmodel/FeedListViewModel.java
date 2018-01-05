@@ -8,16 +8,16 @@ import java.util.List;
 
 public class FeedListViewModel implements IViewModel {
 
-    private List<ProductModel> productModels;
+    private List<FeedViewModel> productModels;
 
     public FeedListViewModel() {
     }
 
-    public List<ProductModel> getProductModels() {
+    public List<FeedViewModel> getProductModels() {
         return productModels;
     }
 
-    public void setProductModels(List<ProductModel> productModels) {
+    public void setProductModels(List<FeedViewModel> productModels) {
         this.productModels = productModels;
     }
 }

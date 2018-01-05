@@ -18,8 +18,7 @@ public class ParseUtil {
     }
 
     public static <T> List<T> getObjectList(String str, Class<T> clazz) {
-        Type listType = new TypeToken<List<T>>() {
-        }.getType();
+        Type listType = TypeToken.getParameterized(List.class, clazz).getType();
         return gson.fromJson(str, listType);
     }
 }
