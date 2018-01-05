@@ -15,9 +15,9 @@ import network.manage.networkhelper.model.BaseResponse;
 public interface NetworkManager {
 
 
-    public <T extends BaseResponse> void postWithFormData(String url, AbstractObserver<T> observer, Class<T> clazz, Map<String, Object> params);
+    public <T extends BaseResponse> void postWithFormData(String url, AbstractObserver<T> observer, Class<T> clazz, Map<String, String> params);
 
-    public <T extends BaseResponse> void post(String url, AbstractObserver<T> observer, Class<T> clazz, BaseRequest body);
+    public <T extends BaseResponse> void post(String url, AbstractObserver<T> observer, Class<T> clazz, Object body);
 
     public <T extends BaseResponse> void get(String url, final AbstractObserver<T> observer, Class<T> clazz);
 

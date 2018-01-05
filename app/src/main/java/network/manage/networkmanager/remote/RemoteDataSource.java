@@ -10,8 +10,10 @@ import network.manage.networkhelper.common.NetworkError;
 import network.manage.networkmanager.common.Callback;
 import network.manage.networkmanager.common.NetworkUrl;
 import network.manage.networkmanager.mapper.FeedListMapper;
+import network.manage.networkmanager.mapper.FeedMapper;
 import network.manage.networkmanager.model.datamodel.FeedDataModel;
 import network.manage.networkmanager.model.viewmodel.FeedListViewModel;
+import network.manage.networkmanager.model.viewmodel.FeedViewModel;
 
 /**
  * Created by aman on 28/12/17.
@@ -46,5 +48,30 @@ public class RemoteDataSource {
         networkManager.getList(url, observer, FeedDataModel.class);
     }
 
+    public void postFeed(Callback<FeedViewModel> callback, FeedDataModel body) {
+        String url = NetworkUrl.getPostListUrl();
+        final WeakReference<Callback<FeedViewModel>> reference = new WeakReference<>(callback);
+
+        AbstractObserver<FeedDataModel> observer = new AbstractObserver<FeedDataModel>() {
+            @Override
+            public void onSuccess(FeedDataModel postDataModels) {
+                Callback<FeedViewModel> modelCallback = reference.get();
+                if (modelCallback != null) {
+                    FeedViewModel postListViewModel = new FeedMapper().convert(postDataModels);
+                    modelCallback.onSuccess(postListViewModel);
+                }
+            }
+
+            @Override
+            public void onFailure(NetworkError error) {
+                Callback<FeedViewModel> modelCallback = reference.get();
+                if (modelCallback != null) {
+                    modelCallback.onFailure(error);
+                }
+            }
+        };
+        networkManager.post(url, observer, FeedDataModel.class, body);
+
+    }
 
 }

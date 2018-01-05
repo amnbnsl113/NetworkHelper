@@ -30,9 +30,9 @@ public interface ApiInterfaceRetrofit {
 
     @FormUrlEncoded
     @POST
-    Observable<Response<ResponseBody>> postWithFormData(@Url String url, @FieldMap Map<String, Object> params);
+    Observable<Response<ResponseBody>> postWithFormData(@Url String url, @FieldMap Map<String, String> params);
 
     @POST
-    Observable<Response<ResponseBody>> post(@Url String url, @Body BaseRequest body);
+    Observable<Response<ResponseBody>> post(@Url String url, @Body Object body);
 
 }

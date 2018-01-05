@@ -21,7 +21,7 @@ public class RetrofitManager implements NetworkManager {
     private static ApiInterfaceRetrofit requestInterface = RetrofitAdapter.getRetrofit(null).create(ApiInterfaceRetrofit.class);
 
     @Override
-    public <T extends BaseResponse> void postWithFormData(String url, final AbstractObserver<T> observer, Class<T> clazz, Map<String, Object> params) {
+    public <T extends BaseResponse> void postWithFormData(String url, final AbstractObserver<T> observer, Class<T> clazz, Map<String, String> params) {
         requestInterface.postWithFormData(url, params)
                 .flatMap(new ParseFunction<>(clazz))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -30,7 +30,7 @@ public class RetrofitManager implements NetworkManager {
     }
 
     @Override
-    public <T extends BaseResponse> void post(String url, final AbstractObserver<T> observer, Class<T> clazz, BaseRequest body) {
+    public <T extends BaseResponse> void post(String url, final AbstractObserver<T> observer, Class<T> clazz, Object body) {
         requestInterface.post(url, body)
                 .flatMap(new ParseFunction<>(clazz))
                 .observeOn(AndroidSchedulers.mainThread())
