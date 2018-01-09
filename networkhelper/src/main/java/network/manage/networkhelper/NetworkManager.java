@@ -15,11 +15,11 @@ import network.manage.networkhelper.model.BaseResponse;
 public interface NetworkManager {
 
 
-    public <T extends BaseResponse> void postWithFormData(String url, AbstractObserver<T> observer, Class<T> clazz, Map<String, String> params);
+    <T extends BaseResponse> void postWithFormData(String url, AbstractObserver<T> observer, Class<T> clazz, Map<String, String> params, boolean synchronous);
 
-    public <T extends BaseResponse> void post(String url, AbstractObserver<T> observer, Class<T> clazz, Object body);
+    <T extends BaseResponse> void post(String url, AbstractObserver<T> observer, Class<T> clazz, Object body, boolean synchronous);
 
-    public <T extends BaseResponse> void get(String url, final AbstractObserver<T> observer, Class<T> clazz);
+    <T extends BaseResponse> void get(String url, AbstractObserver<T> observer, Class<T> clazz, boolean synchronous);
 
-    public <T extends BaseResponse> void getList(String url, final AbstractObserver<List<T>> observer, Class<T> clazz);
+    <T extends BaseResponse> void getList(String url, final AbstractObserver<List<T>> observer, Class<T> clazz, boolean synchronous);
 }

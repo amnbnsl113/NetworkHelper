@@ -22,9 +22,10 @@ import network.manage.networkmanager.model.viewmodel.FeedViewModel;
 public class RemoteDataSource {
     private NetworkManager networkManager = NetworkInteractor.getInstance().getNetworkManager();
 
-    public void getFeedDataList(Callback<FeedListViewModel> callback) {
+    public void getFeedDataList(Callback<FeedListViewModel> callback, boolean sync) {
 
         String url = NetworkUrl.getPostListUrl();
+
         final WeakReference<Callback<FeedListViewModel>> reference = new WeakReference<>(callback);
 
         AbstractObserver<List<FeedDataModel>> observer = new AbstractObserver<List<FeedDataModel>>() {
@@ -45,7 +46,7 @@ public class RemoteDataSource {
                 }
             }
         };
-        networkManager.getList(url, observer, FeedDataModel.class);
+        networkManager.getList(url, observer, FeedDataModel.class, sync);
     }
 
     public void postFeed(Callback<FeedViewModel> callback, FeedDataModel body) {
@@ -70,7 +71,7 @@ public class RemoteDataSource {
                 }
             }
         };
-        networkManager.post(url, observer, FeedDataModel.class, body);
+        networkManager.post(url, observer, FeedDataModel.class, body, false);
 
     }
 
