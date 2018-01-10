@@ -11,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import io.reactivex.Single;
@@ -41,11 +42,11 @@ public class VolleyReqMaker {
             @Override
             public void subscribe(final SingleEmitter<String> emitter) throws Exception {
 
-                JsonObjectRequest strReq = new JsonObjectRequest(method,
-                        url, jsonObject, new Response.Listener<JSONObject>() {
+                StringRequest strReq = new StringRequest(method,
+                        url, new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        emitter.onSuccess(response.toString());
+                    public void onResponse(String response) {
+                        emitter.onSuccess(response);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -61,6 +62,16 @@ public class VolleyReqMaker {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         return params == null ? super.getParams() : params;
+                    }
+
+                    @Override
+                    public byte[] getBody() throws AuthFailureError {
+                        try {
+                            return jsonObject != null ? jsonObject.toString().getBytes("UTF-8") : super.getBody();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                            return super.getBody();
+                        }
                     }
                 };
                 queueManager.addToRequestQueue(strReq);

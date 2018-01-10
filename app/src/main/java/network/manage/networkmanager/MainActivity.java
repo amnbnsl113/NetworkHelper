@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     public void fetchFeed() {
 
-//        remoteDataSource.getFeedDataList(callback, false);
-        samplePostRequest();
+        remoteDataSource.getFeedDataList(callback, false);
+//        samplePostRequest();
         binding.container.setRefreshing(true);
     }
 
