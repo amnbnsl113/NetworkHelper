@@ -1,7 +1,9 @@
 package network.manage.networkmanager.remote;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import network.manage.networkhelper.NetworkInteractor;
 import network.manage.networkhelper.NetworkManager;
@@ -46,8 +48,9 @@ public class RemoteDataSource {
                 }
             }
         };
-        networkManager.getList(url, observer, FeedDataModel.class, sync);
+        networkManager.getList(url, observer, FeedDataModel.class, getHeaders(), sync);
     }
+
 
     public void postFeed(Callback<FeedViewModel> callback, FeedDataModel body) {
         String url = NetworkUrl.getPostListUrl();
@@ -71,8 +74,13 @@ public class RemoteDataSource {
                 }
             }
         };
-        networkManager.post(url, observer, FeedDataModel.class, body, false);
+        networkManager.post(url, observer, FeedDataModel.class, body, getHeaders(), false);
 
     }
 
+    private Map<String, String> getHeaders() {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        return headers;
+    }
 }

@@ -1,11 +1,8 @@
 package network.manage.networkhelper.retrofit;
 
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import network.manage.networkhelper.model.BaseRequest;
-import network.manage.networkhelper.model.BaseResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -23,16 +20,16 @@ import retrofit2.http.Url;
 public interface ApiInterfaceRetrofit {
 
     @GET
-    Observable<Response<ResponseBody>> getList(@Url String url);
+    Observable<Response<ResponseBody>> getList(@Url String url, @HeaderMap Map<String, String> headers);
 
     @GET
-    Observable<Response<ResponseBody>> get(@Url String url);
+    Observable<Response<ResponseBody>> get(@Url String url, @HeaderMap Map<String, String> headers);
 
     @FormUrlEncoded
     @POST
-    Observable<Response<ResponseBody>> postWithFormData(@Url String url, @FieldMap Map<String, String> params);
+    Observable<Response<ResponseBody>> postWithFormData(@Url String url, @FieldMap Map<String, String> params, @HeaderMap Map<String, String> headers);
 
     @POST
-    Observable<Response<ResponseBody>> post(@Url String url, @Body Object body);
+    Observable<Response<ResponseBody>> post(@Url String url, @Body Object body, @HeaderMap Map<String, String> headers);
 
 }

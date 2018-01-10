@@ -17,7 +17,7 @@ import retrofit2.Response;
  * Created by aman on 28/12/17.
  */
 
-public class ParseFunctionList<T> implements Function<Response<ResponseBody>, Observable<List<T>>> {
+public class ParseFunctionList<T> implements Function<String, Observable<List<T>>> {
 
     private Class<T> clazz;
 
@@ -26,26 +26,16 @@ public class ParseFunctionList<T> implements Function<Response<ResponseBody>, Ob
     }
 
     @Override
-    public Observable<List<T>> apply(final Response<ResponseBody> networkResponse) throws Exception {
+    public Observable<List<T>> apply(final String networkResponse) throws Exception {
 
         return Observable.create(new ObservableOnSubscribe<List<T>>() {
             @Override
             public void subscribe(ObservableEmitter<List<T>> subscriber) throws Exception {
                 List<T> response = null;
-                ResponseBody body = null;
-                try {
-                    body = networkResponse.body();
-                    if (body != null) {
-                        String str = body.string();
-                        response = ParseUtil.getObjectList(str, clazz);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (body != null) {
-                        body.close();
-                    }
+                if (networkResponse != null) {
+                    response = ParseUtil.getObjectList(networkResponse, clazz);
                 }
+
                 subscriber.onNext(response);
                 subscriber.onComplete();
             }

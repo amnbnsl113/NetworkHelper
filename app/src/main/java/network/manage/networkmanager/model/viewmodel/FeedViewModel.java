@@ -1,5 +1,7 @@
 package network.manage.networkmanager.model.viewmodel;
 
+import android.view.View;
+
 /**
  * Created by aman on 4/1/18.
  */

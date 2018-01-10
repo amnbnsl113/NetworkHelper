@@ -7,7 +7,7 @@ import network.manage.networkhelper.retrofit.RetrofitManager;
  */
 
 public class NetworkInteractor {
-    private NetworkManager networkManager = new RetrofitManager();
+    private NetworkManager networkManager;
     private static NetworkInteractor interactor = new NetworkInteractor();
 
     private NetworkInteractor() {

@@ -60,7 +60,6 @@ public class FeedDataModel implements IDataModel, BaseResponse, BaseRequest {
     public String toString() {
         return "FeedDataModel{" +
                 "userId=" + userId +
-                ", id=" + id +
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
                 '}';

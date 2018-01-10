@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     public void fetchFeed() {
 
-        remoteDataSource.getFeedDataList(callback, false);
+//        remoteDataSource.getFeedDataList(callback, false);
+        samplePostRequest();
         binding.container.setRefreshing(true);
     }
 
@@ -74,11 +75,13 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private Callback<FeedViewModel> call = new Callback<FeedViewModel>() {
         @Override
         public void onSuccess(FeedViewModel feedViewModel) {
+            binding.container.setRefreshing(false);
 
         }
 
         @Override
         public void onFailure(NetworkError error) {
+            binding.container.setRefreshing(false);
 
         }
     };
