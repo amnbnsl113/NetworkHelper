@@ -4,6 +4,7 @@ import android.app.Application;
 
 import network.manage.networkhelper.NetworkInteractor;
 import network.manage.networkhelper.NetworkManager;
+import network.manage.networkhelper.retrofit.RetrofitManager;
 import network.manage.networkhelper.volley.VolleyManager;
 
 /**
@@ -14,6 +15,6 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        NetworkInteractor.getInstance().setNetworkManager(new VolleyManager(getApplicationContext()));
+        NetworkInteractor.getInstance().setNetworkManager(new RetrofitManager(getApplicationContext()));
     }
 }

@@ -1,6 +1,7 @@
 package network.manage.networkhelper.volley;
 
 import android.content.Context;
+import android.net.Uri;
 
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,11 @@ public class VolleyManager implements NetworkManager {
                 .observeOn(MySchedulers.getScheduler(synchronous))
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(observer);
+
+    }
+
+    @Override
+    public <T extends BaseResponse> void uploadFile(String url, Uri fileUri, AbstractObserver<T> observer, Class<T> clazz, Map<String, String> description, Map<String, String> headers, boolean synchronous) {
 
     }
 

@@ -1,5 +1,8 @@
 package network.manage.networkmanager.remote;
 
+import android.net.Uri;
+
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +12,7 @@ import network.manage.networkhelper.NetworkInteractor;
 import network.manage.networkhelper.NetworkManager;
 import network.manage.networkhelper.common.AbstractObserver;
 import network.manage.networkhelper.common.NetworkError;
+import network.manage.networkhelper.model.BaseResponse;
 import network.manage.networkmanager.common.Callback;
 import network.manage.networkmanager.common.NetworkUrl;
 import network.manage.networkmanager.mapper.FeedListMapper;
@@ -76,6 +80,26 @@ public class RemoteDataSource {
         };
         networkManager.post(url, observer, FeedDataModel.class, body, getHeaders(), false);
 
+    }
+
+    public void uploadImage(Uri uri) {
+        networkManager.uploadFile("https://requestb.in/1eed0og1", uri, new AbstractObserver<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse baseResponse) {
+
+            }
+
+            @Override
+            public void onFailure(NetworkError error) {
+
+            }
+        }, BaseResponse.class, getParams(), getHeaders(), false);
+    }
+
+    private Map<String, String> getParams() {
+        Map<String, String> map = new HashMap<>();
+        map.put("Desc", "Sample");
+        return map;
     }
 
     private Map<String, String> getHeaders() {

@@ -3,6 +3,8 @@ package network.manage.networkhelper.retrofit;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -10,7 +12,10 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Url;
 
 /**
@@ -32,4 +37,7 @@ public interface ApiInterfaceRetrofit {
     @POST
     Observable<Response<ResponseBody>> post(@Url String url, @Body Object body, @HeaderMap Map<String, String> headers);
 
+    @Multipart
+    @POST
+    Observable<Response<ResponseBody>> uploadFile(@Url String url, @Part MultipartBody.Part file, @PartMap Map<String, RequestBody> partsDesc, @HeaderMap Map<String, String> headers);
 }
