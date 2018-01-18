@@ -20,14 +20,13 @@ public class FetchDataService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         RemoteDataSource remoteDataSource = new RemoteDataSource();
-        remoteDataSource.getFeedDataList(callback,true);
+        remoteDataSource.getFeedDataList(callback, true);
 
     }
 
     private Callback<FeedListViewModel> callback = new Callback<FeedListViewModel>() {
         @Override
         public void onSuccess(FeedListViewModel feedListViewModel) {
-//            Toast.makeText(getApplicationContext(), "Positive", Toast.LENGTH_LONG).show();
             Log.e("pass", feedListViewModel.toString());
         }
 

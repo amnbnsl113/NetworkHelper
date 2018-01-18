@@ -5,22 +5,18 @@ import android.content.Context;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
 import network.manage.networkhelper.parser.ParseUtil;
-
-import static com.android.volley.Request.Method.GET;
-import static com.android.volley.Request.Method.POST;
 
 /**
  * Created by aman on 9/1/18.
@@ -33,7 +29,7 @@ public class VolleyReqMaker {
         this.queueManager = new VolleyQueueManager(context);
     }
 
-    Single<String> fireRequest(final int method, final String url, final Map<String, String> header, final Map<String, String> params, final Object requestBody) {
+    Observable<String> fireRequest(final int method, final String url, final Map<String, String> header, final Map<String, String> params, final Object requestBody) {
 
 
         final JSONObject jsonObject = ParseUtil.getJSONObject(requestBody);
@@ -76,7 +72,7 @@ public class VolleyReqMaker {
                 };
                 queueManager.addToRequestQueue(strReq);
             }
-        });
+        }).toObservable();
     }
 
 }

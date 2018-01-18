@@ -20,9 +20,6 @@ import retrofit2.http.Url;
 public interface ApiInterfaceRetrofit {
 
     @GET
-    Observable<Response<ResponseBody>> getList(@Url String url, @HeaderMap Map<String, String> headers);
-
-    @GET
     Observable<Response<ResponseBody>> get(@Url String url, @HeaderMap Map<String, String> headers);
 
     @FormUrlEncoded

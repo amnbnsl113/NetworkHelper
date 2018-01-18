@@ -29,10 +29,9 @@ public class VolleyManager implements NetworkManager {
 
 
     @Override
-    public <T extends BaseResponse> void postWithFormData(String url, AbstractObserver<T> observer, Class<T> clazz, Map<String, String> params, Map<String, String> headers, boolean synchronous) {
+    public <T> void postWithFormData(String url, AbstractObserver<T> observer, Class<T> clazz, Map<String, String> params, Map<String, String> headers, boolean synchronous) {
 
         reqMaker.fireRequest(POST, url, headers, params, null)
-                .toObservable()
                 .flatMap(new ParseFunction<>(clazz))
                 .observeOn(MySchedulers.getScheduler(synchronous))
                 .subscribeOn(Schedulers.newThread())
@@ -40,10 +39,9 @@ public class VolleyManager implements NetworkManager {
     }
 
     @Override
-    public <T extends BaseResponse> void post(String url, AbstractObserver<T> observer, Class<T> clazz, Object body, Map<String, String> headers, boolean synchronous) {
+    public <T> void post(String url, AbstractObserver<T> observer, Class<T> clazz, Object body, Map<String, String> headers, boolean synchronous) {
 
         reqMaker.fireRequest(POST, url, headers, null, body)
-                .toObservable()
                 .flatMap(new ParseFunction<>(clazz))
                 .observeOn(MySchedulers.getScheduler(synchronous))
                 .subscribeOn(Schedulers.newThread())
@@ -52,10 +50,9 @@ public class VolleyManager implements NetworkManager {
     }
 
     @Override
-    public <T extends BaseResponse> void get(String url, AbstractObserver<T> observer, Class<T> clazz, Map<String, String> headers, boolean synchronous) {
+    public <T> void get(String url, AbstractObserver<T> observer, Class<T> clazz, Map<String, String> headers, boolean synchronous) {
 
         reqMaker.fireRequest(GET, url, headers, null, null)
-                .toObservable()
                 .flatMap(new ParseFunction<>(clazz))
                 .observeOn(MySchedulers.getScheduler(synchronous))
                 .subscribeOn(Schedulers.newThread())
@@ -64,10 +61,9 @@ public class VolleyManager implements NetworkManager {
     }
 
     @Override
-    public <T extends BaseResponse> void getList(String url, AbstractObserver<List<T>> observer, Class<T> clazz, Map<String, String> headers, boolean synchronous) {
+    public <T> void getList(String url, AbstractObserver<List<T>> observer, Class<T> clazz, Map<String, String> headers, boolean synchronous) {
 
         reqMaker.fireRequest(GET, url, headers, null, null)
-                .toObservable()
                 .flatMap(new ParseFunctionList<>(clazz))
                 .observeOn(MySchedulers.getScheduler(synchronous))
                 .subscribeOn(Schedulers.newThread())

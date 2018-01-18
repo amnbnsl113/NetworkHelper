@@ -8,6 +8,7 @@ import android.util.Log;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -35,18 +36,11 @@ public class RetrofitAdapter {
     public static final int CONNECT_TIME_OUT = 30;
     public static final int KEEP_ALIVE_DURATION = 3000;
     public static final int MAX_IDLE_CONNECTIONS = 4;
-    public static final int NETWORK_READ_TIME_OUT = 30;
 
-    public static Retrofit getRetrofit(String baseUrl) {
+    public static Retrofit getRetrofit(List<Interceptor> interceptors) {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        Interceptor interceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                return chain.proceed(chain.request());
-            }
-        };
-        builder.addNetworkInterceptor(interceptor);
+
         builder.connectionPool(new okhttp3.ConnectionPool(CORE_POOL_SIZE, KEEP_ALIVE_DURATION, TimeUnit.MILLISECONDS));
         builder.readTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS);
         builder.connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS);
@@ -55,13 +49,19 @@ public class RetrofitAdapter {
         builder.dispatcher(new Dispatcher(Executors.newFixedThreadPool(MAX_IDLE_CONNECTIONS)));
         builder.cache(new Cache(Environment.getDataDirectory(), 1024 * 5));
 
+        if (interceptors != null) {
+            for (Interceptor interceptor : interceptors) {
+                builder.addInterceptor(interceptor);
+            }
+        }
+
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         builder.addInterceptor(httpLoggingInterceptor);
         OkHttpClient client = builder.build();
 
         return new Retrofit.Builder()
-                .baseUrl(!TextUtils.isEmpty(baseUrl) ? baseUrl : BASE_URL)
+                .baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client).build();
     }

@@ -75,7 +75,6 @@ public class RemoteDataSource {
             }
         };
         networkManager.post(url, observer, FeedDataModel.class, body, getHeaders(), false);
-
     }
 
     private Map<String, String> getHeaders() {
